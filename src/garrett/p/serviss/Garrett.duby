@@ -13,27 +13,23 @@ class GarrettView < View
     @paint.setARGB(250, 50, 50, 200)
     @frame = 0
     @radius = 50
-    @x = @radius
-    @y = @radius
-    @xv = 1
-    @yv = 1
   end
 
-  def bounce
-    if @x > (getWidth - @radius) or @x < @radius
-      @xv = -@xv
-    end
-    if @y > (getHeight - @radius) or @y < @radius
-      @yv = -@yv
-    end
+  def x
+    bounce_to(getWidth)
+  end
+
+  def y
+    bounce_to(getHeight)
+  end
+
+  def bounce_to(limit:int)
+    Math.abs((@frame % (2 * limit)) - limit)
   end
 
   def onDraw(canvas:Canvas)
     @frame = @frame + 1
-    @x = @x + @xv
-    @y = @y + @yv
-    bounce
-    canvas.drawCircle(@x, @y, @radius, @paint)
+    canvas.drawCircle(x, y, @radius, @paint)
     invalidate
   end
 end

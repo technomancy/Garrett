@@ -2,6 +2,10 @@
 
 Garrett is a playground for Duby exploration on Android.
 
+Garrett is named after Garrett P. Serviss, the hero of Edison's
+Conquest of Mars, a ridiculous late 19th-century space opera novel by
+Garrett P. Serviss.
+
 ## Compilation
 
 Copy local.properties.example to local.properties and edit it to point
