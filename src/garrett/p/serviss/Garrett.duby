@@ -1,6 +1,7 @@
 import "android.app.Activity"
 import "android.content.Context"
 import "android.os.Bundle"
+import "android.util.Log"
 
 import "android.view.View"
 import "android.view.MotionEvent"
@@ -38,10 +39,12 @@ class GarrettView < View
 
   def onTouchEvent(event:MotionEvent)
     if event.getAction == MotionEvent.ACTION_DOWN
-      @down = event
-      return true
-    elsif event.getAction == MotionEvent.ACTION_MOVE
       if on_ball(event.getX, event.getY)
+        @down = true
+        return true
+      end
+    elsif event.getAction == MotionEvent.ACTION_MOVE
+      if @down
         @x = event.getX
         @y = event.getY
         return true
@@ -54,20 +57,25 @@ class GarrettView < View
   end
 
   def release(event:MotionEvent)
-    delta_x = @down.getX - event.getX
-    delta_y = @down.getY - event.getY
-    if delta_x > delta_y
-      @vx = 1.0
-      @vy = delta_y / delta_x
+    delta_x = event.getX - event.getHistoricalX(0)
+    delta_y = event.getY - event.getHistoricalY(0)
+    Log.i("Garrett", "Delta X: " + Float.new(delta_x).toString +
+          ", Delta Y: " + Float.new(delta_y).toString)
+    if Math.abs(delta_x) > Math.abs(delta_y)
+      @vy = delta_y / Math.abs(delta_x)
+      @vx = 1.0 # WTF; 1.0 and -1.0 are different types?!
+      @vx = -@vx if delta_x < 0
     else
-      @vx = delta_x / delta_y
+      @vx = delta_x / Math.abs(delta_y)
       @vy = 1.0
+      @vy = -@vy if delta_y < 0
     end
-    @down = nil
+    Log.i("Garrett", Float.new(@vx).toString + "x" + Float.new(@vy).toString)
+    @down = false
   end
 
   def onDraw(canvas:Canvas)
-    move # unless @down
+    move unless @down
     bounce
     canvas.drawCircle(@x, @y, @radius, @paint)
     Thread.sleep(10)
