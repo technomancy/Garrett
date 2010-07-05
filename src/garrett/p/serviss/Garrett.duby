@@ -3,6 +3,7 @@ import "android.content.Context"
 import "android.os.Bundle"
 
 import "android.view.View"
+import "android.view.MotionEvent"
 import "android.graphics.Canvas"
 import "android.graphics.Paint"
 
@@ -30,6 +31,12 @@ class GarrettView < View
   def move
     @x += @vx
     @y += @vy
+  end
+
+  def onTouchEvent(event:MotionEvent)
+    @x = int(event.getX)
+    @y = int(event.getY)
+    return true
   end
 
   def onDraw(canvas:Canvas)
