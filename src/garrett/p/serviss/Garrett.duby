@@ -11,33 +11,41 @@ class GarrettView < View
     super(a)
     @paint = Paint.new
     @paint.setARGB(250, 50, 50, 200)
-    @frame = 0
+    @x = 0
+    @y = 0
+    @vx = 1
+    @vy = 1
     @radius = 50
   end
 
-  def x
-    bounce_to(getWidth)
+  def bounce
+    if @x > getWidth or @x < 0
+      @vx = -@vx
+    end
+    if @y > getWidth or @y < 0
+      @vy = -@vy
+    end
   end
 
-  def y
-    bounce_to(getHeight)
-  end
-
-  def bounce_to(limit:int)
-    Math.abs((@frame % (2 * limit)) - limit)
+  def move
+    @x += @vx
+    @y += @vy
   end
 
   def onDraw(canvas:Canvas)
-    @frame = @frame + 1
-    canvas.drawCircle(x, y, @radius, @paint)
+    move
+    bounce
+    canvas.drawCircle(@x, @y, @radius, @paint)
+    Thread.sleep(10)
     invalidate
   end
 end
 
 class Garrett < Activity
-  def onCreate(savedInstanceState:Bundle)
-    super(savedInstanceState)
-    v = GarrettView.new(self)
-    setContentView(v)
+  def onCreate(state:Bundle)
+    @state = state
+    super(state)
+    @view = GarrettView.new(self)
+    setContentView(@view)
   end
 end
