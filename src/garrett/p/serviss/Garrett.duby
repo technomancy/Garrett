@@ -21,7 +21,7 @@ class GarrettView < View
     if @x > (getWidth - @radius) or @x < @radius
       @vx = -@vx
     end
-    if @y > (getWidth - @radius) or @y < @radius
+    if @y > (getHeight - @radius) or @y < @radius
       @vy = -@vy
     end
   end
