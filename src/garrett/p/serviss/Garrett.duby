@@ -19,12 +19,16 @@ class GarrettView < View
   end
 
   def bounce
-    # TODO: make sure it bounces the right way instead of flip-flopping
-    if @x > (getWidth - @radius) or @x < @radius
-      @vx = -@vx
+    if @x > (getWidth - @radius)
+      @vx = -Math.abs(@vx)
+    elsif @x < @radius
+      @vx = Math.abs(@vx)
     end
-    if @y > (getHeight - @radius) or @y < @radius
-      @vy = -@vy
+
+    if @y > (getHeight - @radius)
+      @vy = -Math.abs(@vy)
+    elsif @y < @radius
+      @vy = Math.abs(@vy)
     end
   end
 
