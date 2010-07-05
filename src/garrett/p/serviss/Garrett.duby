@@ -12,18 +12,16 @@ class GarrettView < View
     super(a)
     @paint = Paint.new
     @paint.setARGB(250, 50, 50, 200)
-    @x = 0
-    @y = 0
-    @vx = 1
-    @vy = 1
-    @radius = 50
+    
+    @y = @x = @radius = 50
+    @vx = @vy = 1
   end
 
   def bounce
-    if @x > getWidth or @x < 0
+    if @x > (getWidth - @radius) or @x < @radius
       @vx = -@vx
     end
-    if @y > getWidth or @y < 0
+    if @y > (getWidth - @radius) or @y < @radius
       @vy = -@vy
     end
   end
@@ -33,10 +31,16 @@ class GarrettView < View
     @y += @vy
   end
 
+  def on_ball(x:float, y:float)
+    Math.abs(x - @x) <= @radius and Math.abs(y - @y) <= @radius
+  end
+  
   def onTouchEvent(event:MotionEvent)
-    @x = int(event.getX)
-    @y = int(event.getY)
-    return true
+    if on_ball(event.getX, event.getY)
+      @x = int(event.getX)
+      @y = int(event.getY)
+      return true
+    end
   end
 
   def onDraw(canvas:Canvas)
