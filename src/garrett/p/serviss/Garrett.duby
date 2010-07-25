@@ -35,6 +35,8 @@ class GarrettView < View
   def move
     @x += @vx
     @y += @vy
+    @vx *= 0.99
+    @vy *= 0.99
   end
 
   def on_ball(x:float, y:float)
@@ -63,8 +65,12 @@ class GarrettView < View
   def release(event:MotionEvent)
     delta_x = event.getX - event.getHistoricalX(0)
     delta_y = event.getY - event.getHistoricalY(0)
-    Log.i("Garrett", "Delta X: " + Float.new(delta_x).toString +
-          ", Delta Y: " + Float.new(delta_y).toString)
+    Log.i("Garrett", "Delta X: " + delta_x +
+          ", Delta Y: " + delta_y)
+    @vx = delta_x < 0 ? -Math.min(-delta_x, 50) : Math.min(delta_x, 50)
+    @vy = delta_y < 0 ? -Math.min(-delta_y, 50) : Math.min(delta_y, 50)
+    # subsequent lines replaced with above to allow for "throwing" the ball
+=begin
     if Math.abs(delta_x) > Math.abs(delta_y)
       @vy = delta_y / Math.abs(delta_x)
       @vx = 1.0 # WTF; 1.0 and -1.0 are different types?!
@@ -74,7 +80,8 @@ class GarrettView < View
       @vy = 1.0
       @vy = -@vy if delta_y < 0
     end
-    Log.i("Garrett", Float.new(@vx).toString + "x" + Float.new(@vy).toString)
+=end
+    Log.i("Garrett", "" + @vx + "x" + @vy)
     @down = false
   end
 
