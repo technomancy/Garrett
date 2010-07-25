@@ -14,8 +14,8 @@ class GarrettView < View
     @paint = Paint.new
     @paint.setARGB(250, 50, 50, 200)
 
-    @y = @x = @radius = 50.0
-    @vx = @vy = 1.0
+    @y = @x = @radius = float(50.0)
+    @vx = @vy = float(1.0)
   end
 
   def bounce
@@ -35,8 +35,8 @@ class GarrettView < View
   def move
     @x += @vx
     @y += @vy
-    @vx *= 0.99
-    @vy *= 0.99
+    @vx *= float(0.99)
+    @vy *= float(0.99)
   end
 
   def on_ball(x:float, y:float)
