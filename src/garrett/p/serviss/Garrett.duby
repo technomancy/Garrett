@@ -1,12 +1,12 @@
-import "android.app.Activity"
-import "android.content.Context"
-import "android.os.Bundle"
-import "android.util.Log"
+import android.app.Activity
+import android.content.Context
+import android.os.Bundle
+import android.util.Log
 
-import "android.view.View"
-import "android.view.MotionEvent"
-import "android.graphics.Canvas"
-import "android.graphics.Paint"
+import android.view.View
+import android.view.MotionEvent
+import android.graphics.Canvas
+import android.graphics.Paint
 
 class GarrettView < View
   def initialize(a:Context)
@@ -78,8 +78,16 @@ class GarrettView < View
     delta_y = event.getY - event.getHistoricalY(0)
     Log.i("Garrett", "Delta X: " + delta_x +
           ", Delta Y: " + delta_y)
-    @vx = delta_x < 0 ? -Math.min(-delta_x, 50) : Math.min(delta_x, 50)
-    @vy = delta_y < 0 ? -Math.min(-delta_y, 50) : Math.min(delta_y, 50)
+    if delta_x < 0
+      @vx = -Math.min(-delta_x, 500)
+    else
+      @vx = Math.min(delta_x, 500)
+    end
+    if delta_y < 0
+      @vy = -Math.min(-delta_y, 500)
+    else
+      @vy = Math.min(delta_y, 500)
+    end
     Log.i("Garrett", "" + @vx + "x" + @vy)
     @down = false
     @bounces = 0
