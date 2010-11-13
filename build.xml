@@ -65,9 +65,9 @@
     <setup />
 
     <target name="compile" depends="-resource-src, -aidl"
-            description="Compiles project's .duby files into .class files">
+            description="Compiles project's .mirah files into .class files">
       <exec executable="mirahc" dir="src">
-        <arg line="-c ${sdk.dir}/platforms/${target-version}/android.jar:gen/" />
+        <arg line="-c ${sdk.dir}/platforms/${target}/android.jar:../gen/" />
         <arg value="-d" />
         <arg value="../bin/classes/" />
         <arg value="." />

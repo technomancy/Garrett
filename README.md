@@ -9,7 +9,7 @@ Garrett P. Serviss.
 ## Compilation
 
 Copy local.properties.example to local.properties and edit it to point
-to your SDK. If you're not targeting Android 2.1, you might need to
+to your SDK. If you're not targeting Android 2.2, you might need to
 edit default.properties too.
 
 You'll need [Mirah](http://github.com/headius/mirah) checked out
