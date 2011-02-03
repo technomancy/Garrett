@@ -1,6 +1,6 @@
 # Garrett
 
-Garrett is a playground for Mirah exploration on Android.
+Garrett is an example application for Mirah development on Android.
 
 Garrett is named after Garrett P. Serviss, the hero of Edison's
 Conquest of Mars, a ridiculous late 19th-century space opera novel by
@@ -8,14 +8,22 @@ Garrett P. Serviss.
 
 ## Compilation
 
-Copy local.properties.example to local.properties and edit it to point
-to your SDK. If you're not targeting Android 2.2, you might need to
-edit default.properties too.
+Install [JRuby](http://jruby.org) and then
+[pindah](http://github.com/mirah/pindah). If your gem and rake are not
+from from JRuby, prefix the commands with jruby -S:
 
-You'll need [Mirah](http://github.com/headius/mirah) checked out
-and compiled with bin/mirahc on your path.
+    $ gem install pindah
 
-Then you should be set to do "ant debug", and an .apk file should be
-generated in the bin/ directory. You should then be able to install it
-using "adb install" or by putting it on a public web server and
-navigating to that URL from your device.
+Then you should be able to build the apk with rake:
+
+    $ rake debug
+    
+This places <tt>Garrett-debug.apk</tt> in the <tt>bin/</tt>
+directory. You can install it to a connected device or emulator with
+<tt>rake install</tt> or distribute for HTTP download or whatever.
+
+## License
+
+Released under the Apache 2.0 license.
+
+Copyright (C) 2010-2011 Phil Hagelberg, Charles Nutter
