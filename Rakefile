@@ -3,4 +3,4 @@ require "pindah"
 
 Pindah.spec = { :name => "Garrett",
   :author => "Phil Hagelberg",
-  :target => "android-7" }
+  :target_version => "2.1" }
